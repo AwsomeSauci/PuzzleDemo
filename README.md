@@ -1,16 +1,17 @@
-# Puzzle Flow UI MVP
+# PuzzleDemo: Puzzle Flow UI MVP
 
-Test assignment MVP for a Unity puzzle-game UI flow: gallery, puzzle preview, start scenarios, continuation, and reusable popup/dialog routing.
+Unity test assignment MVP for a puzzle-game UI flow: gallery, puzzle preview, start scenarios, continuation, and reusable popup/dialog routing.
 
 The project is intentionally shaped as a first production-minded iteration, not as a full production framework. The goal is to show a clean direction, extension points, and enough working UI to discuss engineering tradeoffs in an interview.
 
 ## Quick Start
 
-1. Open the project in Unity `6000.4.9f1`.
-2. Open `Assets/Scenes/Main.unity`.
-3. Enter Play Mode.
-4. Click a puzzle tile in the gallery.
-5. In the preview screen, select a cut and press the start button.
+1. Clone `https://github.com/AwsomeSauci/PuzzleDemo`.
+2. Open the repository root in Unity `6000.4.9f1`.
+3. Open `Assets/Scenes/Main.unity`.
+4. Enter Play Mode.
+5. Click a puzzle tile in the gallery.
+6. In the preview screen, select a cut and press the start button.
 
 The default demo configuration is currently set to show failure flows for paid starts:
 
@@ -28,7 +29,8 @@ The default demo configuration is currently set to show failure flows for paid s
 - Application-layer start flow for `Free`, `Coins`, and `RewardedAd`.
 - Demo infrastructure that can simulate success and failure without real SDKs.
 - Zenject composition split into service and fragment installers.
-- EditMode tests covering core start-flow and demo-service behavior.
+- Fail-fast validation for fragment registries, popup definitions, and popup catalogs.
+- EditMode tests covering start flow, demo services, gallery preview loading, presenter mapping, and fragment-router edge cases.
 
 ## Main Entry Points
 
@@ -78,6 +80,7 @@ Media
 - SDK-like systems are isolated behind `IPurchaseService` and `IAdService`.
 - Dialog rendering is centralized in `UniversalPopupService`.
 - Scene setup is data-driven through ScriptableObject installers and registries.
+- Public interfaces are kept in dedicated files to make contracts easy to find and review.
 
 ## Start Flow
 
@@ -239,16 +242,29 @@ Covered areas:
 - Missing/duplicate start handler configuration errors.
 - Demo purchase service modes.
 - Demo rewarded-ad service modes.
+- `PuzzleId` argument validation.
+- In-memory progress repository empty/null seed behavior.
+- Gallery placeholder rendering and lazy preview loading.
 - Fragment router cancellation and broken-open behavior.
 - Fragment close lifecycle exceptions do not leave route awaiters hanging.
 - Start button presentation mapping.
 
+## Repository Notes
+
+Generated local files are intentionally not committed:
+
+- Unity `Library`, `Temp`, `Obj`, `Logs`, and `UserSettings`.
+- IDE/project files such as `.idea`, `.vs`, `.sln`, and `.csproj`.
+- Build output and generated Addressables player content.
+
+Unity `.meta` files under `Assets` and embedded packages are part of the project state and should stay committed.
+
 ## Verification
 
-Fast C# compile check:
+Fast C# compile check after Unity/Rider has generated a solution file:
 
 ```powershell
-dotnet build TestOpenMyGame.sln --no-restore -v:minimal
+dotnet build .\<generated-solution>.sln --no-restore -v:minimal
 ```
 
 Known warning:
@@ -262,17 +278,19 @@ This comes from Unity/Addressables generated references and does not block the c
 Unity EditMode tests:
 
 ```powershell
+$projectPath = (Get-Location).Path
+
 & 'C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe' `
-  -batchmode -nographics `
-  -projectPath 'C:\Unity\TestOpenMyGame' `
+  -batchmode -nographics -quit `
+  -projectPath $projectPath `
   -runTests -testPlatform EditMode `
-  -testResults 'C:\Unity\TestOpenMyGame\Temp\EditModeResults.xml' `
-  -logFile 'C:\Unity\TestOpenMyGame\Temp\EditMode.log'
+  -testResults "$projectPath\Temp\EditModeResults.xml" `
+  -logFile "$projectPath\Temp\EditMode.log"
 ```
 
-Do not pass `-quit` together with `-runTests` for this project. The Unity Test Runner exits the editor after the run; passing `-quit` can stop batchmode during startup before the result XML is written. Exit code `2` means the tests ran and at least one test failed.
+Unity batchmode cannot open the same project while it is already open in another Unity instance. If the project is open, close the Editor first or run the tests from the Editor Test Runner.
 
-Unity batchmode cannot open the same project while it is already open in another Unity instance. If the project is open, run tests from the Editor Test Runner instead.
+If the process returns a non-zero exit code, inspect `Temp/EditModeResults.xml` and `Temp/EditMode.log`.
 
 ## MVP Boundaries
 
@@ -293,7 +311,7 @@ Production follow-up would likely add:
 - Real wallet and transaction boundary.
 - Real ad/purchase adapters.
 - Persistent progress repository.
-- Addressables error UI and retry policy.
+- User-facing Addressables error UI and richer retry/backoff policy.
 - Popup localization provider and analytics hooks.
 - Richer route/registry validation UI in Editor.
 - PlayMode smoke tests for scene composition.
