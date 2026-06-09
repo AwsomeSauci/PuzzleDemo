@@ -73,6 +73,7 @@ namespace PuzzleFlow.Presentation.Gallery
                 return;
             }
 
+            ValidateRequiredReferences();
             adapter = new VirtualizedGridScrollAdapter<PuzzleGalleryItemViewModel, PuzzleTileCell>(
                 scrollRect,
                 content,
@@ -82,6 +83,29 @@ namespace PuzzleFlow.Presentation.Gallery
                 padding ?? new RectOffset(18, 18, 18, 18),
                 bufferRows);
             adapter.ItemBecameVisible += OnItemBecameVisible;
+        }
+
+        private void ValidateRequiredReferences()
+        {
+            if (scrollRect == null)
+            {
+                throw new InvalidOperationException($"{nameof(GalleryImageListView)} on '{name}' has no ScrollRect reference.");
+            }
+
+            if (scrollRect.viewport == null)
+            {
+                throw new InvalidOperationException($"{nameof(GalleryImageListView)} on '{name}' has no ScrollRect viewport reference.");
+            }
+
+            if (content == null)
+            {
+                throw new InvalidOperationException($"{nameof(GalleryImageListView)} on '{name}' has no content reference.");
+            }
+
+            if (cellPrefab == null)
+            {
+                throw new InvalidOperationException($"{nameof(GalleryImageListView)} on '{name}' has no cell prefab.");
+            }
         }
 
         private PuzzleTileCell CreateCell()

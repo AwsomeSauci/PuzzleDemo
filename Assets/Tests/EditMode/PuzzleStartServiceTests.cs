@@ -41,6 +41,30 @@ namespace PuzzleFlow.Tests
         }
 
         [Test]
+        public async Task CoinStart_WhenCallerCancelsAfterSuccessfulPurchase_StillMarksProgress()
+        {
+            PuzzleDefinition puzzle = CreatePuzzle(PuzzleStartMode.Coins, 100);
+            FakeProgressRepository progressRepository = new FakeProgressRepository();
+            CancellationTokenSource cancellation = new CancellationTokenSource();
+            PuzzleStartService service = CreateService(
+                new CoinPuzzleStartModeHandler(
+                    progressRepository,
+                    new FakePurchaseService(PurchaseResult.Success(), cancellation.Cancel)));
+
+            try
+            {
+                PuzzleStartAttempt result = await service.StartNewAsync(puzzle, 36, cancellation.Token);
+
+                Assert.That(result.IsSuccess, Is.True);
+                Assert.That(progressRepository.GetProgress(puzzle.Id, 36), Is.Not.Null);
+            }
+            finally
+            {
+                cancellation.Dispose();
+            }
+        }
+
+        [Test]
         public async Task CoinStart_WhenPurchaseFails_DoesNotMarkProgress()
         {
             PuzzleDefinition puzzle = CreatePuzzle(PuzzleStartMode.Coins, 100);
@@ -90,6 +114,33 @@ namespace PuzzleFlow.Tests
 
             Assert.That(result.IsSuccess, Is.True);
             Assert.That(progressRepository.GetProgress(puzzle.Id, 36), Is.Not.Null);
+        }
+
+        [Test]
+        public async Task RewardedAdStart_WhenCallerCancelsAfterCompletedAd_StillMarksProgress()
+        {
+            PuzzleDefinition puzzle = CreatePuzzle(PuzzleStartMode.RewardedAd, 0);
+            FakeProgressRepository progressRepository = new FakeProgressRepository();
+            CancellationTokenSource cancellation = new CancellationTokenSource();
+            PuzzleStartService service = CreateService(
+                new RewardedAdPuzzleStartModeHandler(
+                    progressRepository,
+                    new FakeAdService(
+                        AdAvailability.Available(),
+                        AdShowResult.Completed(),
+                        cancellation.Cancel)));
+
+            try
+            {
+                PuzzleStartAttempt result = await service.StartNewAsync(puzzle, 36, cancellation.Token);
+
+                Assert.That(result.IsSuccess, Is.True);
+                Assert.That(progressRepository.GetProgress(puzzle.Id, 36), Is.Not.Null);
+            }
+            finally
+            {
+                cancellation.Dispose();
+            }
         }
 
         [TestCase(AdShowFailureReason.WeakInternet, PuzzleStartFailureReason.WeakInternet)]
@@ -213,10 +264,12 @@ namespace PuzzleFlow.Tests
         private sealed class FakePurchaseService : IPurchaseService
         {
             private readonly PurchaseResult result;
+            private readonly Action onPurchase;
 
-            public FakePurchaseService(PurchaseResult result)
+            public FakePurchaseService(PurchaseResult result, Action onPurchase = null)
             {
                 this.result = result;
+                this.onPurchase = onPurchase;
             }
 
             public int GetBalance(string currencyCode)
@@ -226,6 +279,7 @@ namespace PuzzleFlow.Tests
 
             public Task<PurchaseResult> PurchaseAsync(PurchaseRequest request, CancellationToken cancellationToken)
             {
+                onPurchase?.Invoke();
                 return Task.FromResult(result);
             }
         }
@@ -234,11 +288,13 @@ namespace PuzzleFlow.Tests
         {
             private readonly AdAvailability availability;
             private readonly AdShowResult result;
+            private readonly Action onShow;
 
-            public FakeAdService(AdAvailability availability, AdShowResult result)
+            public FakeAdService(AdAvailability availability, AdShowResult result, Action onShow = null)
             {
                 this.availability = availability;
                 this.result = result;
+                this.onShow = onShow;
             }
 
             public AdAvailability GetRewardedAvailability(AdPlacement placement)
@@ -248,6 +304,7 @@ namespace PuzzleFlow.Tests
 
             public Task<AdShowResult> ShowRewardedAsync(AdPlacement placement, CancellationToken cancellationToken)
             {
+                onShow?.Invoke();
                 return Task.FromResult(result);
             }
         }

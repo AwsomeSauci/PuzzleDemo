@@ -59,7 +59,8 @@ namespace PuzzleFlow.Application
                 return PuzzleStartAttempt.Failure(MapPurchaseFailure(purchase.FailureReason));
             }
 
-            cancellationToken.ThrowIfCancellationRequested();
+            // A successful purchase is already an external entitlement; grant progress even if
+            // the UI caller is canceled immediately after the SDK call returns.
             progressRepository.MarkStarted(puzzle.Id, pieceCount);
             return PuzzleStartAttempt.Success();
         }
@@ -119,7 +120,8 @@ namespace PuzzleFlow.Application
                 return PuzzleStartAttempt.Failure(MapAdFailure(adResult.FailureReason));
             }
 
-            cancellationToken.ThrowIfCancellationRequested();
+            // A completed rewarded ad is already an external entitlement; grant progress even if
+            // the UI caller is canceled immediately after the SDK call returns.
             progressRepository.MarkStarted(puzzle.Id, pieceCount);
             return PuzzleStartAttempt.Success();
         }

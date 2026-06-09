@@ -27,7 +27,7 @@ The default demo configuration is currently set to show failure flows for paid s
 - Puzzle gallery with virtualized grid cells and async preview loading.
 - Puzzle preview dialog with image, cut selection, dynamic start button state, and continue button.
 - Application-layer start flow for `Free`, `Coins`, and `RewardedAd`.
-- Demo infrastructure that can simulate success and failure without real SDKs.
+- Demo purchase/ad stubs that simulate success and failure without real SDKs.
 - Zenject composition split into service and fragment installers.
 - Fail-fast validation for fragment registries, popup definitions, and popup catalogs.
 - EditMode tests covering start flow, demo services, gallery preview loading, presenter mapping, and fragment-router edge cases.
@@ -150,6 +150,19 @@ Current default values:
 | `Skipped` | Ad is available, but show result is skipped. |
 | `Failed` | Ad is available, but show result fails. |
 
+## Demo SDK Stubs
+
+`DemoPurchaseService` and `DemoAdService` are intentional stubs for this test assignment. They do not integrate real payment, wallet, ad mediation, SDK callbacks, server validation, or receipt verification.
+
+The purpose of these services is to keep the demo deterministic and reviewable:
+
+- `IPurchaseService` shows where a real wallet/purchase adapter would be connected.
+- `IAdService` shows where rewarded-ad availability and show-result handling would be connected.
+- Demo modes make success, insufficient-funds, unavailable, cancelled, weak-internet, skipped, and failed scenarios reproducible without third-party SDK setup.
+- The application start flow is written against interfaces, so production adapters can replace the demo bindings in `PuzzleFlowServicesInstaller`.
+
+Production expansion would replace these stubs with SDK/back-end adapters, idempotent entitlement granting, analytics, retry policy, receipt validation, and a persistent wallet/progress transaction boundary.
+
 ## Popup Flow
 
 The popup system is intentionally simple:
@@ -238,15 +251,17 @@ Covered areas:
 - Free start success.
 - Coin start success/failure mapping.
 - Rewarded-ad start success/failure mapping.
-- Cancellation before progress mutation.
+- Cancellation before progress mutation for free starts.
+- Late cancellation after successful purchase/rewarded-ad entitlement does not drop granted progress.
 - Missing/duplicate start handler configuration errors.
+- Missing/duplicate start-option presentation configuration errors.
 - Demo purchase service modes.
 - Demo rewarded-ad service modes.
 - `PuzzleId` argument validation.
 - In-memory progress repository empty/null seed behavior.
 - Gallery placeholder rendering and lazy preview loading.
-- Fragment router cancellation and broken-open behavior.
-- Fragment close lifecycle exceptions do not leave route awaiters hanging.
+- Fragment router cancellation, empty-route, and broken-open behavior.
+- Fragment close lifecycle exceptions do not leave route awaiters hanging or visible fragments behind.
 - Start button presentation mapping.
 
 ## Repository Notes
@@ -281,12 +296,14 @@ Unity EditMode tests:
 $projectPath = (Get-Location).Path
 
 & 'C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe' `
-  -batchmode -nographics -quit `
+  -batchmode -nographics `
   -projectPath $projectPath `
   -runTests -testPlatform EditMode `
   -testResults "$projectPath\Temp\EditModeResults.xml" `
   -logFile "$projectPath\Temp\EditMode.log"
 ```
+
+The Unity Test Framework exits the editor after the command-line run completes. If Unity has just regenerated scripts or packages, run the command again after compilation finishes.
 
 Unity batchmode cannot open the same project while it is already open in another Unity instance. If the project is open, close the Editor first or run the tests from the Editor Test Runner.
 
@@ -300,6 +317,7 @@ Deliberately simplified:
 
 - No real purchase SDK.
 - No real ad SDK.
+- Demo purchase and ad services are deterministic stubs, not partial production integrations.
 - No backend catalog or persistence.
 - No save-game serialization beyond seeded in-memory progress.
 - No full animation/state-machine framework for fragment transitions.
@@ -310,6 +328,7 @@ Production follow-up would likely add:
 
 - Real wallet and transaction boundary.
 - Real ad/purchase adapters.
+- Idempotent server-side entitlement granting for purchases and rewarded ads.
 - Persistent progress repository.
 - User-facing Addressables error UI and richer retry/backoff policy.
 - Popup localization provider and analytics hooks.

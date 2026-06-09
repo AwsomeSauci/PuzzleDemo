@@ -103,6 +103,16 @@ namespace PuzzleFlow.Presentation.PuzzlePreview
 
             foreach (IStartOptionPresentationStrategy strategy in strategies)
             {
+                if (strategy == null)
+                {
+                    throw new ArgumentException("Start option presentation strategy collection contains null.", nameof(strategies));
+                }
+
+                if (strategiesByMode.ContainsKey(strategy.Mode))
+                {
+                    throw new InvalidOperationException($"Start option presentation for '{strategy.Mode}' is registered twice.");
+                }
+
                 strategiesByMode[strategy.Mode] = strategy;
             }
         }

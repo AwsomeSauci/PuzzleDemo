@@ -52,7 +52,7 @@ namespace PuzzleFlow.Presentation.Navigation
         {
             if (fragmentId.IsEmpty)
             {
-                return UniTask.FromResult(default(TResult));
+                throw new System.ArgumentOutOfRangeException(nameof(fragmentId), fragmentId, "Fragment id cannot be empty.");
             }
 
             if (cancellationToken.IsCancellationRequested)

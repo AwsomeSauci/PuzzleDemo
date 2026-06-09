@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using PuzzleFlow.Domain;
 using PuzzleFlow.Presentation.PuzzlePreview;
+using System;
 
 namespace PuzzleFlow.Tests
 {
@@ -81,6 +82,28 @@ namespace PuzzleFlow.Tests
             Assert.That(
                 factory.CreateStartButton(new StartOption(PuzzleStartMode.RewardedAd, 0)).LabelText,
                 Is.EqualTo("Watch video"));
+        }
+
+        [Test]
+        public void Constructor_WhenStrategyIsNull_ThrowsConfigurationError()
+        {
+            Assert.Throws<ArgumentException>(() => new PuzzleStartOptionViewModelFactory(
+                new IStartOptionPresentationStrategy[]
+                {
+                    new FreeStartOptionPresentationStrategy(),
+                    null
+                }));
+        }
+
+        [Test]
+        public void Constructor_WhenStrategyIsDuplicated_ThrowsConfigurationError()
+        {
+            Assert.Throws<InvalidOperationException>(() => new PuzzleStartOptionViewModelFactory(
+                new IStartOptionPresentationStrategy[]
+                {
+                    new FreeStartOptionPresentationStrategy(),
+                    new FreeStartOptionPresentationStrategy()
+                }));
         }
     }
 }

@@ -52,6 +52,7 @@ namespace PuzzleFlow.Presentation.PuzzlePreview
 
         public void Initialize()
         {
+            ValidateRequiredReferences();
             isInitialized = true;
         }
 
@@ -120,6 +121,54 @@ namespace PuzzleFlow.Presentation.PuzzlePreview
         {
             Clear();
             DisposePieceButtonPool();
+        }
+
+        private void ValidateRequiredReferences()
+        {
+            if (title == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no title reference.");
+            }
+
+            if (subtitle == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no subtitle reference.");
+            }
+
+            if (preview == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no preview image reference.");
+            }
+
+            if (progress == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no progress text reference.");
+            }
+
+            if (wallet == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no wallet text reference.");
+            }
+
+            if (pieceButtonsRoot == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no piece buttons root.");
+            }
+
+            if (pieceButtonPrefab == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no piece button prefab.");
+            }
+
+            if (startButton == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no start button reference.");
+            }
+
+            if (continueButton == null)
+            {
+                throw new InvalidOperationException($"{nameof(PuzzlePreviewFragmentView)} on '{name}' has no continue button reference.");
+            }
         }
 
         private void RenderPieceButtons(IReadOnlyList<PuzzleCutOptionViewModel> options)

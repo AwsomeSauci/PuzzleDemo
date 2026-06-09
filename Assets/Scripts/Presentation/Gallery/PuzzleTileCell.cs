@@ -14,11 +14,18 @@ namespace PuzzleFlow.Presentation.Gallery
 
         private PuzzleGalleryItemViewModel item;
 
-        public RectTransform RectTransform => rectTransform;
+        public RectTransform RectTransform => rectTransform != null
+            ? rectTransform
+            : (RectTransform)transform;
         public UnityEvent<PuzzleId> Clicked => clicked;
 
         public void Bind(PuzzleGalleryItemViewModel item, int itemIndex)
         {
+            if (preview == null)
+            {
+                throw new System.InvalidOperationException($"{nameof(PuzzleTileCell)} on '{name}' has no preview image reference.");
+            }
+
             this.item = item;
             preview.sprite = item.Preview;
             preview.enabled = item.Preview != null;
@@ -27,8 +34,11 @@ namespace PuzzleFlow.Presentation.Gallery
         public void Unbind()
         {
             item = null;
-            preview.sprite = null;
-            preview.enabled = false;
+            if (preview != null)
+            {
+                preview.sprite = null;
+                preview.enabled = false;
+            }
         }
 
         public void OnClicked()

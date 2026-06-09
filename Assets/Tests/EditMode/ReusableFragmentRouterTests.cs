@@ -69,6 +69,22 @@ namespace PuzzleFlow.Tests
         }
 
         [Test]
+        public void ShowAsync_WhenFragmentIdIsEmpty_ThrowsConfigurationError()
+        {
+            GameObject root = new GameObject("RouterTestRoot");
+            FakeFragmentFactory factory = new FakeFragmentFactory();
+            ReusableFragmentRouter router = new ReusableFragmentRouter(factory, root.transform);
+
+            Assert.Throws<System.ArgumentOutOfRangeException>(() =>
+                router.ShowAsync<Unit, string>(FragmentId.Empty, Unit.Value).AsTask());
+            Assert.That(factory.GetLayerCount, Is.EqualTo(0));
+            Assert.That(factory.GetOrCreateCount, Is.EqualTo(0));
+            Assert.That(factory.Fragment.OpenCount, Is.EqualTo(0));
+
+            Object.DestroyImmediate(root);
+        }
+
+        [Test]
         public void ShowAsync_WhenFragmentOpenThrows_DoesNotKeepBrokenHandle()
         {
             GameObject root = new GameObject("RouterTestRoot");
@@ -109,8 +125,11 @@ namespace PuzzleFlow.Tests
 
             Assert.That(await open, Is.EqualTo("done"));
             Assert.That(router.IsActive(fragmentId), Is.False);
+            Assert.That(fragment.LifecycleState, Is.EqualTo(FragmentLifecycleState.Disappeared));
+            Assert.That(fragment.gameObject.activeSelf, Is.False);
 
             Object.DestroyImmediate(root);
+            Object.DestroyImmediate(fragmentObject);
         }
 
         private sealed class FakeFragmentFactory : IFragmentFactory

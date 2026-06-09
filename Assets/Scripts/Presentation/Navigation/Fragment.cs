@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System;
+using System.Runtime.ExceptionServices;
 
 namespace PuzzleFlow.Presentation.Navigation
 {
@@ -70,14 +72,56 @@ namespace PuzzleFlow.Presentation.Navigation
                 return;
             }
 
+            Exception failure = null;
             LifecycleState = FragmentLifecycleState.Disappearing;
-            OnWillDisappear();
-            LifecycleState = FragmentLifecycleState.Disappeared;
-            OnDisappeared();
-
-            if (deactivateOnDisappear)
+            try
             {
-                gameObject.SetActive(false);
+                OnWillDisappear();
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+
+            try
+            {
+                LifecycleState = FragmentLifecycleState.Disappeared;
+                OnDisappeared();
+            }
+            catch (Exception exception)
+            {
+                if (failure != null)
+                {
+                    Debug.LogException(exception, this);
+                }
+                else
+                {
+                    failure = exception;
+                }
+            }
+
+            try
+            {
+                if (deactivateOnDisappear)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+            catch (Exception exception)
+            {
+                if (failure != null)
+                {
+                    Debug.LogException(exception, this);
+                }
+                else
+                {
+                    failure = exception;
+                }
+            }
+
+            if (failure != null)
+            {
+                ExceptionDispatchInfo.Capture(failure).Throw();
             }
         }
 
