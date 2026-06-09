@@ -7,6 +7,8 @@
         "PuzzleFlow.Application",
         "PuzzleFlow.Domain",
         "PuzzleFlow.Infrastructure",
+        "PuzzleFlow.Media",
+        "PuzzleFlow.Media.Runtime",
         "PuzzleFlow.Presentation",
         "UniTask"
     ],

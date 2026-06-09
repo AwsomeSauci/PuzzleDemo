@@ -21,3 +21,4 @@ MonoBehaviour:
   demoStartingBalance: 0
   demoPurchaseMode: 1
   demoRewardedAdMode: 2
+  mediaCacheMaxCompletedEntries: 64

@@ -9,14 +9,27 @@ namespace PuzzleFlow.Media
 {
     public sealed class CachedMediaService : IMediaService
     {
+        public const int DefaultMaxCompletedEntries = 64;
+
         private readonly IMediaSource source;
+        private readonly int maxCompletedEntries;
         private readonly Dictionary<MediaCacheKey, CacheEntry> entriesByKey = new Dictionary<MediaCacheKey, CacheEntry>();
+        private readonly LinkedList<MediaCacheKey> completedLru = new LinkedList<MediaCacheKey>();
         private CancellationTokenSource lifetime = new CancellationTokenSource();
         private bool isDisposed;
 
-        public CachedMediaService(IMediaSource source)
+        public CachedMediaService(IMediaSource source, int maxCompletedEntries = DefaultMaxCompletedEntries)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
+            if (maxCompletedEntries < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(maxCompletedEntries),
+                    maxCompletedEntries,
+                    "Completed media cache size cannot be negative.");
+            }
+
+            this.maxCompletedEntries = maxCompletedEntries;
         }
 
         public UniTask<TAsset> LoadAsync<TAsset>(
@@ -34,15 +47,30 @@ namespace PuzzleFlow.Media
                 throw new ArgumentException("Media reference is empty.", nameof(reference));
             }
 
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return UniTask.FromCanceled<TAsset>(cancellationToken);
+            }
+
             MediaCacheKey key = new MediaCacheKey(typeof(TAsset), reference.Key);
+            bool shouldStartLoad = false;
             if (!entriesByKey.TryGetValue(key, out CacheEntry entry))
             {
                 entry = new CacheEntry(CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token));
                 entriesByKey[key] = entry;
-                LoadAndCacheAsync<TAsset>(key, entry, reference, entry.LoadToken).Forget();
+                shouldStartLoad = true;
+            }
+            else
+            {
+                TouchCompletedEntry(entry);
             }
 
             entry.Retain();
+            if (shouldStartLoad)
+            {
+                LoadAndCacheAsync<TAsset>(key, entry, reference, entry.LoadToken).Forget();
+            }
+
             return AwaitTypedAssetAsync<TAsset>(key, entry, entry.Completion.Task, cancellationToken);
         }
 
@@ -57,15 +85,7 @@ namespace PuzzleFlow.Media
             lifetime.Dispose();
             lifetime = new CancellationTokenSource();
 
-            List<CacheEntry> entries = new List<CacheEntry>(entriesByKey.Values);
-            entriesByKey.Clear();
-
-            for (int index = 0; index < entries.Count; index++)
-            {
-                CacheEntry entry = entries[index];
-                entry.Evict();
-                entry.Lease?.Dispose();
-            }
+            EvictAllEntries();
         }
 
         public void Dispose()
@@ -77,15 +97,7 @@ namespace PuzzleFlow.Media
 
             isDisposed = true;
             lifetime.Cancel();
-            List<CacheEntry> entries = new List<CacheEntry>(entriesByKey.Values);
-            entriesByKey.Clear();
-
-            for (int index = 0; index < entries.Count; index++)
-            {
-                CacheEntry entry = entries[index];
-                entry.Evict();
-                entry.Lease?.Dispose();
-            }
+            EvictAllEntries();
 
             lifetime.Dispose();
             source.Dispose();
@@ -107,10 +119,10 @@ namespace PuzzleFlow.Media
                     throw new OperationCanceledException(cancellationToken);
                 }
 
-                entry.Asset = result.Asset;
-                entry.Lease = result.Lease;
-                entry.IsCompleted = true;
+                entry.SetLoaded(result.Asset, result.Lease);
+                TrackCompletedEntry(key, entry);
                 entry.Completion.TrySetResult(result.Asset);
+                TrimCompletedEntries();
             }
             catch (OperationCanceledException)
             {
@@ -162,15 +174,22 @@ namespace PuzzleFlow.Media
 
         private void ReleaseWaiter(MediaCacheKey key, CacheEntry entry)
         {
-            if (entry.Release() > 0 || entry.IsCompleted || entry.IsEvicted || isDisposed)
+            if (entry.Release() > 0 || entry.IsEvicted || isDisposed)
             {
                 return;
             }
 
-            if (RemoveEntry(key, entry))
+            if (!entry.IsCompleted)
             {
-                entry.Evict();
+                if (RemoveEntry(key, entry))
+                {
+                    entry.Evict();
+                }
+
+                return;
             }
+
+            TrimCompletedEntries();
         }
 
         private bool RemoveEntry(MediaCacheKey key, CacheEntry entry)
@@ -179,7 +198,90 @@ namespace PuzzleFlow.Media
                 ReferenceEquals(currentEntry, entry))
             {
                 entriesByKey.Remove(key);
+                UntrackCompletedEntry(entry);
                 return true;
+            }
+
+            return false;
+        }
+
+        private void EvictAllEntries()
+        {
+            List<CacheEntry> entries = new List<CacheEntry>(entriesByKey.Values);
+            entriesByKey.Clear();
+            completedLru.Clear();
+
+            for (int index = 0; index < entries.Count; index++)
+            {
+                entries[index].LruNode = null;
+                entries[index].Evict();
+            }
+        }
+
+        private void TrackCompletedEntry(MediaCacheKey key, CacheEntry entry)
+        {
+            UntrackCompletedEntry(entry);
+            entry.LruNode = completedLru.AddLast(key);
+        }
+
+        private void TouchCompletedEntry(CacheEntry entry)
+        {
+            if (!entry.IsCompleted || entry.LruNode == null)
+            {
+                return;
+            }
+
+            completedLru.Remove(entry.LruNode);
+            completedLru.AddLast(entry.LruNode);
+        }
+
+        private void UntrackCompletedEntry(CacheEntry entry)
+        {
+            if (entry.LruNode == null)
+            {
+                return;
+            }
+
+            if (entry.LruNode.List != null)
+            {
+                completedLru.Remove(entry.LruNode);
+            }
+
+            entry.LruNode = null;
+        }
+
+        private void TrimCompletedEntries()
+        {
+            while (completedLru.Count > maxCompletedEntries)
+            {
+                if (!TryEvictOldestIdleCompletedEntry())
+                {
+                    return;
+                }
+            }
+        }
+
+        private bool TryEvictOldestIdleCompletedEntry()
+        {
+            LinkedListNode<MediaCacheKey> node = completedLru.First;
+            int checkedCount = completedLru.Count;
+            for (int index = 0; index < checkedCount && node != null; index++)
+            {
+                MediaCacheKey key = node.Value;
+                LinkedListNode<MediaCacheKey> next = node.Next;
+
+                if (!entriesByKey.TryGetValue(key, out CacheEntry entry))
+                {
+                    completedLru.Remove(node);
+                }
+                else if (entry.CanEvictCompleted)
+                {
+                    RemoveEntry(key, entry);
+                    entry.Evict();
+                    return true;
+                }
+
+                node = next;
             }
 
             return false;
@@ -234,7 +336,16 @@ namespace PuzzleFlow.Media
             public IDisposable Lease;
             public bool IsEvicted;
             public bool IsCompleted;
+            public LinkedListNode<MediaCacheKey> LruNode;
             public CancellationToken LoadToken => loadCancellation.Token;
+            public bool CanEvictCompleted => IsCompleted && waiterCount == 0 && !IsEvicted;
+
+            public void SetLoaded(UnityEngine.Object asset, IDisposable lease)
+            {
+                Asset = asset;
+                Lease = lease;
+                IsCompleted = true;
+            }
 
             public void Retain()
             {
@@ -253,8 +364,15 @@ namespace PuzzleFlow.Media
 
             public void Evict()
             {
+                if (IsEvicted)
+                {
+                    return;
+                }
+
                 IsEvicted = true;
                 CancelLoad();
+                DisposeLease();
+                Asset = null;
             }
 
             public void CancelLoad()
@@ -282,6 +400,17 @@ namespace PuzzleFlow.Media
 
                 isLoadCancellationDisposed = true;
                 loadCancellation.Dispose();
+            }
+
+            private void DisposeLease()
+            {
+                if (Lease == null)
+                {
+                    return;
+                }
+
+                Lease.Dispose();
+                Lease = null;
             }
         }
     }

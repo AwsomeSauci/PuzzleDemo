@@ -17,6 +17,8 @@ namespace PuzzleFlow.Runtime
         [SerializeField] private int demoStartingBalance = 300;
         [SerializeField] private DemoPurchaseMode demoPurchaseMode = DemoPurchaseMode.SucceedWhenAffordable;
         [SerializeField] private DemoRewardedAdMode demoRewardedAdMode = DemoRewardedAdMode.Completed;
+        [SerializeField, Min(0)] private int mediaCacheMaxCompletedEntries =
+            CachedMediaService.DefaultMaxCompletedEntries;
 
         public override void InstallBindings()
         {
@@ -121,7 +123,8 @@ namespace PuzzleFlow.Runtime
                 .AsSingle();
 
             Container.BindInterfacesAndSelfTo<CachedMediaService>()
-                .AsSingle();
+                .AsSingle()
+                .WithArguments(mediaCacheMaxCompletedEntries);
 
             Container.BindInterfacesAndSelfTo<MediaSpriteService>()
                 .AsSingle();
