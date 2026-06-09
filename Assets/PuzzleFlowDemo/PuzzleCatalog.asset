@@ -1,0 +1,447 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9c2e47e78a4d54b8307df40eaac104, type: 3}
+  m_Name: PuzzleCatalog
+  m_EditorClassIdentifier: PuzzleFlow.Infrastructure::PuzzleFlow.Infrastructure.PuzzleCatalogAsset
+  entries:
+  - id: sunset-bay-1
+    title: Sunset Bay 1
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/sunset-bay-1
+  - id: night-cafe-2
+    title: Night Cafe 2
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 200
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/night-cafe-2
+  - id: greenhouse-3
+    title: Greenhouse 3
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/greenhouse-3
+  - id: paper-kites-4
+    title: Paper Kites 4
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/paper-kites-4
+  - id: arctic-road-5
+    title: Arctic Road 5
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 140
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/arctic-road-5
+  - id: market-morning-6
+    title: Market Morning 6
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/market-morning-6
+  - id: coral-garden-7
+    title: Coral Garden 7
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/coral-garden-7
+  - id: old-library-8
+    title: Old Library 8
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 120
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/old-library-8
+  - id: rainy-station-9
+    title: Rainy Station 9
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 140
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/rainy-station-9
+  - id: summer-terrace-10
+    title: Summer Terrace 10
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/summer-terrace-10
+  - id: glass-harbor-11
+    title: Glass Harbor 11
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 220
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/glass-harbor-11
+  - id: lantern-street-12
+    title: Lantern Street 12
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 120
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/lantern-street-12
+  - id: sunset-bay-13
+    title: Sunset Bay 13
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/sunset-bay-13
+  - id: night-cafe-14
+    title: Night Cafe 14
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 200
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/night-cafe-14
+  - id: greenhouse-15
+    title: Greenhouse 15
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/greenhouse-15
+  - id: paper-kites-16
+    title: Paper Kites 16
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/paper-kites-16
+  - id: arctic-road-17
+    title: Arctic Road 17
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 140
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/arctic-road-17
+  - id: market-morning-18
+    title: Market Morning 18
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/market-morning-18
+  - id: coral-garden-19
+    title: Coral Garden 19
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/coral-garden-19
+  - id: old-library-20
+    title: Old Library 20
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 120
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 160
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/old-library-20
+  - id: rainy-station-21
+    title: Rainy Station 21
+    collectionName: Travel
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 140
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/rainy-station-21
+  - id: summer-terrace-22
+    title: Summer Terrace 22
+    collectionName: City
+    cutOptions:
+    - pieceCount: 16
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 0
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 95
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/summer-terrace-22
+  - id: glass-harbor-23
+    title: Glass Harbor 23
+    collectionName: Nature
+    cutOptions:
+    - pieceCount: 16
+      startMode: 1
+      coinPrice: 180
+    - pieceCount: 36
+      startMode: 1
+      coinPrice: 220
+    - pieceCount: 64
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/glass-harbor-23
+  - id: lantern-street-24
+    title: Lantern Street 24
+    collectionName: Cozy
+    cutOptions:
+    - pieceCount: 16
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 36
+      startMode: 2
+      coinPrice: 0
+    - pieceCount: 64
+      startMode: 1
+      coinPrice: 120
+    - pieceCount: 100
+      startMode: 2
+      coinPrice: 0
+    previewMedia:
+      key: puzzle-preview/lantern-street-24

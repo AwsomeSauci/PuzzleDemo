@@ -1,0 +1,22 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb7d600864c4655b5c9cb32e256402b, type: 3}
+  m_Name: PuzzlePopupCatalog
+  m_EditorClassIdentifier: PuzzleFlow.Presentation::PuzzleFlow.Presentation.PuzzlePreview.PuzzlePopupCatalog
+  started: {fileID: 11400000, guid: 0a6d142244884573929d83db47ceafca, type: 2}
+  continued: {fileID: 11400000, guid: 659d89f958b34632b868fef04c93178e, type: 2}
+  notEnoughCoins: {fileID: 11400000, guid: ecd7efe3f89547ce97ab11f1b3d4bde9, type: 2}
+  purchaseUnavailable: {fileID: 11400000, guid: 1d9d0597e9f24ea083f92f3dc08c6512, type: 2}
+  purchaseCancelled: {fileID: 11400000, guid: c46b782d9dfc49a9b3d7a8817f51cc74, type: 2}
+  weakInternet: {fileID: 11400000, guid: 13f2d32f1134460abe7e5dadf52b2886, type: 2}
+  adSkipped: {fileID: 11400000, guid: 051e87f00062488da68b4f4fcac492ce, type: 2}
+  adUnavailable: {fileID: 11400000, guid: 889f416f06ce446289346f2fab72c433, type: 2}

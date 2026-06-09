@@ -1,0 +1,17 @@
+{
+    "name": "PuzzleFlow.Media",
+    "rootNamespace": "PuzzleFlow.Media",
+    "references": [
+        "PuzzleFlow.Domain",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

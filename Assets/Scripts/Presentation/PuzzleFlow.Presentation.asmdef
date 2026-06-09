@@ -1,0 +1,21 @@
+{
+    "name": "PuzzleFlow.Presentation",
+    "rootNamespace": "PuzzleFlow.Presentation",
+    "references": [
+        "PuzzleFlow.Application",
+        "PuzzleFlow.Domain",
+        "PuzzleFlow.Media",
+        "UniTask",
+        "Unity.TextMeshPro",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

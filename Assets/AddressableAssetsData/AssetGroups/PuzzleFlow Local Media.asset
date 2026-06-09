@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PuzzleFlow Local Media
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: PuzzleFlow Local Media
+  m_GUID: 9dd866cedbd8e8c489b64801543a0dde
+  m_SerializeEntries:
+  - m_GUID: 0910f1addef246fc8adfc38f7eac87ec
+    m_Address: puzzle-preview/arctic-road-17
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d62159556fa4b6e9d8d17b3900b38bd
+    m_Address: puzzle-preview/lantern-street-12
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 102cf304b0f04d8f9ff7a4aa3b418b73
+    m_Address: puzzle-preview/glass-harbor-23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e9a6dd24fb24d378108807bed969924
+    m_Address: puzzle-preview/lantern-street-24
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37f8d930e1734e479dc015c9de218f90
+    m_Address: puzzle-preview/coral-garden-7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38920e11ca3f474aba312e6a19562643
+    m_Address: puzzle-preview/summer-terrace-10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e7436de54584857ba5406535622674e
+    m_Address: puzzle-preview/glass-harbor-11
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48351b3b30484372bf81670587afdf24
+    m_Address: puzzle-preview/sunset-bay-13
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5aa048cc422e499dba9d4d89d12c7dbd
+    m_Address: puzzle-preview/greenhouse-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63dbbdf5785f47c6b7a69ec68dd2aa90
+    m_Address: puzzle-preview/night-cafe-14
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65c236d1e1824bca9010595ae314fa93
+    m_Address: puzzle-preview/sunset-bay-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 676dad6b35884961bac84894decdaf95
+    m_Address: puzzle-preview/coral-garden-19
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e0c2e9478e84639bc1951d60c53b33e
+    m_Address: puzzle-preview/night-cafe-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 803ca39670e14c649f79c40c960b4cf6
+    m_Address: puzzle-preview/paper-kites-16
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 806bf3ffe5864123af4dc71b3971cd94
+    m_Address: puzzle-preview/rainy-station-21
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c8c0950080b45f398fc19fcb5ebde65
+    m_Address: puzzle-preview/summer-terrace-22
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b81a5c183f524c658a6099716bbf039c
+    m_Address: puzzle-preview/market-morning-6
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d29679871f844e439dec34b32580f4c3
+    m_Address: puzzle-preview/old-library-20
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5c7ff62bf434e01bafbda668d99bdf2
+    m_Address: puzzle-preview/rainy-station-9
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6cdce26a91f42b89fe534b2402c1579
+    m_Address: puzzle-preview/arctic-road-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8f86ba03bea410e9857acde98a55875
+    m_Address: puzzle-preview/paper-kites-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8f87b9f1d224753b83fa65a40b358d3
+    m_Address: puzzle-preview/greenhouse-15
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f516f63fbbdc46cda61ccee6cf72493c
+    m_Address: puzzle-preview/market-morning-18
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdb86bfaa1e94f948c367e1cce5a3bff
+    m_Address: puzzle-preview/old-library-8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - puzzle-preview
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: de445c7093ce7114ca94355035a65ffb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3211036b83c3172458004d703ff1efd6, type: 2}
+    - {fileID: 11400000, guid: 16f3f02b83acf4c45961bd960a9f9df8, type: 2}

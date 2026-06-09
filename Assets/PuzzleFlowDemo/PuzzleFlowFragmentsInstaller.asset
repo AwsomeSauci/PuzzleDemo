@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f2a8d50a69498782c10d49f0523ce4, type: 3}
+  m_Name: PuzzleFlowFragmentsInstaller
+  m_EditorClassIdentifier: PuzzleFlow.Runtime::PuzzleFlow.Runtime.PuzzleFlowFragmentsInstaller
+  fragmentRegistry: {fileID: 11400000, guid: 6f0d1450850185c488c6cf158779e84e, type: 2}
+  popupRegistry: {fileID: 11400000, guid: 1db7f4fe336e4a04b851d3de53c7a9cb, type: 2}
+  popupCatalog: {fileID: 11400000, guid: 6a8f69220f9e4225abf07e34d3c0bc6c, type: 2}
+  showGalleryOnStart: 1
+  freeCutLabel: Free
+  freeStartLabel: Play
+  coinCutFormat: '{0} coins'
+  coinStartFormat: Play for {0} coins
+  coinCurrencyCode: coins
+  rewardedAdCutLabel: Ad
+  rewardedAdStartLabel: Watch ad

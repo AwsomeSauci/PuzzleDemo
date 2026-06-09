@@ -1,0 +1,23 @@
+{
+    "name": "PuzzleFlow.Runtime",
+    "rootNamespace": "PuzzleFlow.Runtime",
+    "references": [
+        "PuzzleFlow.Application",
+        "PuzzleFlow.Domain",
+        "PuzzleFlow.Infrastructure",
+        "PuzzleFlow.Media",
+        "PuzzleFlow.Media.Runtime",
+        "PuzzleFlow.Presentation",
+        "UniTask",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

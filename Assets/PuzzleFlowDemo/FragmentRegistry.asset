@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7103202ea099a84eb5a07aecd57f3ee, type: 3}
+  m_Name: FragmentRegistry
+  m_EditorClassIdentifier: PuzzleFlow.Runtime::PuzzleFlow.Runtime.FragmentRegistry
+  registrations:
+  - fragmentId: fragment.gallery
+    layer: 0
+    prefab: {fileID: 3114276835111174262, guid: 14c331cf1eda0874faecdc002f6acfc3, type: 3}
+  - fragmentId: fragment.puzzle-preview
+    layer: 1
+    prefab: {fileID: 6872636982875929333, guid: 039a15cb4b6334c47a1deb668bf90c52, type: 3}
+  - fragmentId: fragment.universal-popup
+    layer: 1
+    prefab: {fileID: 7848265454107807584, guid: 54af4830a35341e428ba0dec6e8ff244, type: 3}

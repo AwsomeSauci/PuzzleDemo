@@ -1,0 +1,28 @@
+{
+    "name": "PuzzleFlow.Tests",
+    "rootNamespace": "PuzzleFlow.Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "PuzzleFlow.Application",
+        "PuzzleFlow.Domain",
+        "PuzzleFlow.Infrastructure",
+        "PuzzleFlow.Presentation",
+        "UniTask"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
